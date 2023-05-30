@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const nayoks=['manna','depjol','alia']
+  const [nayoks ,setNayoks]=useState([]);
+useEffect(()=>{
+fetch ('https://jsonplaceholder.typicode.com/users')
+.then(res=>res.json())
+.then(data=>setNayoks(data))
+},[])
+
+
+  //const nayoks=[{name:'manna',age:55},{name:'dipjol',age:60},{name:'alia',age:27}]
   return (
     <div className="App">
       <MoviCounter></MoviCounter>
-      <Nayok name={ nayoks[1]} age='56'></Nayok>
-      <Nayok name='sakib'></Nayok>
-      <Nayok name={nayoks[2]}></Nayok>
-      <Nayok></Nayok>
+      {
+        nayoks.map(nayok=> <Nayok name={nayok.name} age={nayok.age}> </Nayok>)
+      }
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         
